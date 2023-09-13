@@ -1,8 +1,17 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
-import React, { useState } from "react";
-import ModalWindow from "../Modal/ModalWindow";
+import React, { useState } from 'react';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from '@mui/material';
+import ModalWindow from '../Modal/ModalWindow';
 
-export default function CardItem({ continent }) {
+export default function CardItem({
+  img, title, description, handleNavigate,
+}) {
   const [isShowModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -11,26 +20,26 @@ export default function CardItem({ continent }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
         <CardMedia
           sx={{ height: 140 }}
-          image={continent.img}
-          title={continent.continent}
+          image={img}
+          title={title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {continent.continent}
+          <Typography gutterBottom variant='h5' component='div'>
+            {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {continent.description.slice(0, 100)}...
+          <Typography variant='body2' color='text.secondary'>
+            {description.slice(0, 100)}...
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small" onClick={handleShowModal}>Learn More</Button>
+          <Button size='small' onClick={() => handleNavigate(title)}>Let&apos;s Go!</Button>
+          <Button size='small' onClick={handleShowModal}>Learn More</Button>
         </CardActions>
       </Card>
-      {isShowModal && <ModalWindow content={continent} />}
+      {isShowModal && <ModalWindow description={description} />}
     </>
   );
 }

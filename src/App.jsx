@@ -1,30 +1,20 @@
 import React from 'react';
-import { Continents } from './pages/continents';
-import './styled.js';
-import {
-  FooterGrid, HeaderGrid, Item, LogoText, MainGrid, MainWrapp, SideBarGrid,
-} from './styled.js';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Template from './components/Templates/Template';
+import ContinentRoutes from './components/Routes/ContinentRoutes';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
-    <MainWrapp container>
-      <HeaderGrid item lg={12}>
-        <Item>
-          <LogoText variant="h1" component="h2">TripMyDream</LogoText>
-        </Item>
-      </HeaderGrid>
-      <SideBarGrid item lg={3}>
-        <Item>Sidebar</Item>
-      </SideBarGrid>
-      <MainGrid item lg={9}>
-        <Item>
-          <Continents />
-        </Item>
-      </MainGrid>
-      <FooterGrid item lg={12}>
-        <Item>Footer</Item>
-      </FooterGrid>
-    </MainWrapp>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/*' element={<NotFound />} />
+        <Route path='/' element={<h1>Hello!!!</h1>} />
+        <Route element={<Template />}>
+          <Route path='/tripMyDream/*' element={<ContinentRoutes />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

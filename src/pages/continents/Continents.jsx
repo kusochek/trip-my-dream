@@ -1,8 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import CardItem from "../../components/Cards/Card";
-import { continents } from "../../api/continents/continents";
+import React, {
+  useCallback, useEffect, useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import CardItem from '../../components/Cards/Card';
+import { continents } from '../../api/continents/continents';
+import { CardWrapp } from './styled';
 
 export default function Continents() {
+  const navigate = useNavigate();
   const [continentList, setContinentList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -17,7 +22,6 @@ export default function Continents() {
       const response = await continents.get();
       setContinentList(response);
     } catch (err) {
-      console.log(err);
       setError(err);
     } finally {
       setLoading(false);
@@ -26,17 +30,27 @@ export default function Continents() {
 
   useEffect(() => {
     fetchContinentList();
-  }, []);
+  }, [fetchContinentList]);
 
+  const handleNavigate = (title) => {
+    const params = title.replaceAll(' ', '_').toLowerCase();
+    navigate(`/tripMyDream/continent/${params}`);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <>
+    <CardWrapp>
       {continentList.map((continent) => (
-        <CardItem key={continent.id} continent={continent} />
+        <CardItem
+          key={continent.id}
+          img={continent.img}
+          title={continent.continent}
+          description={continent.description}
+          handleNavigate={handleNavigate}
+        />
       ))}
-    </>
+    </CardWrapp>
   );
 }

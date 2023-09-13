@@ -1,4 +1,4 @@
-import { Grid, Typography, styled } from "@mui/material";
+import { Grid, Typography, styled } from '@mui/material';
 
 export const MainWrapp = styled(Grid)(() => ({
   height: '100vh',

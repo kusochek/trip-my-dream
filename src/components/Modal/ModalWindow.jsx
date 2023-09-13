@@ -1,12 +1,11 @@
-import React from "react";
-import { ModalWrapp } from "./styled";
-import { Paper } from "@mui/material";
+import React from 'react';
+import { Paper } from '@mui/material';
+import { ModalWrapp } from './styled';
 
-export default function ModalWindow({ content }) {
-
+export default function ModalWindow({ description }) {
   return (
     <ModalWrapp>
-      <Paper style={{ width: '400px' }}>{content.description}</Paper>
+      <Paper style={{ width: '400px' }}>{description}</Paper>
     </ModalWrapp>
   );
-};
+}
