@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import {
   FooterGrid, HeaderGrid, Item, LogoText, MainGrid, MainWrapp, SideBarGrid,
 } from '../../styled';
+import Sidebar from '../Sidebar';
 
 function Template() {
   return (
@@ -13,7 +14,7 @@ function Template() {
         </Item>
       </HeaderGrid>
       <SideBarGrid item lg={3}>
-        <Item>Sidebar</Item>
+        <Item><Sidebar /></Item>
       </SideBarGrid>
       <MainGrid item lg={9}>
         <Item>

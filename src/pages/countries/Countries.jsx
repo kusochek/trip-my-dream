@@ -1,27 +1,32 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useParams } from 'react-router-dom';
-import { countries } from '../../api/countries/countries';
+import { useDispatch, useSelector } from 'react-redux';
 import { CardWrapp } from '../continents/styled';
 import CardItem from '../../components/Cards/Card';
+import thunks from '../../store/services/countries/thunks';
 
 export default function Countries() {
+  const { countries, filteredCountries, filter } = useSelector((state) => state.countriesReducer);
+  const dispatch = useDispatch();
   const { continent } = useParams();
-  const [countriesList, setCountriesList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const countriesList = useMemo(() => (filter ? filteredCountries : countries), [countries, filter, filteredCountries]);
 
   const fetchCountriesList = useCallback(async () => {
     setLoading(true);
 
     try {
-      const response = await countries.get(continent.toLowerCase().replaceAll(' ', ''));
-      setCountriesList(response);
+      await dispatch(thunks.fetchCountries(continent));
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
-  }, [continent]);
+  }, [continent, dispatch]);
 
   useEffect(() => {
     fetchCountriesList();
