@@ -39,7 +39,9 @@
             "node": {
                 "extensions": [
                     ".js",
-                    ".jsx"
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
                 ]
             }
         }
